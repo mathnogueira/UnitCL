@@ -20,6 +20,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <unitcl/suite/test_suite.h>
+#include <unitcl/core/test.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -56,4 +57,23 @@ void UnitCL_TestSuite_Destroy(struct UnitCL_TestSuite* suite) {
 void UnitCL_TestSuite_AddTest(struct UnitCL_TestCase *testcase, struct UnitCL_TestSuite *suite) {
 	ListOf_UnitCL_TestCase_Push(testcase, suite->testcases);
 	printf("Numero de testes: %d\n", ListOf_UnitCL_TestCase_Size(suite->testcases));
+}
+
+/**
+ * Execute all test cases associated with a test suite.
+ *
+ * @param suite test suite that will be executed.
+ */
+void UnitCL_TestSuite_Execute(struct UnitCL_TestSuite *suite) {
+	unsigned int count = 0;
+	unsigned int testcases = ListOf_UnitCL_TestCase_Size(suite->testcases);
+	struct UnitCL_TestCase *test = NULL;
+	for (; count < testcases; ++count) {
+		test = ListOf_UnitCL_TestCase_Retrieve(count, suite->testcases);
+		UnitCL_TestCase_Run(test);
+		if (test->status == Failed)
+			suite->status = Failed;
+	}
+	if (suite->status != Failed)
+		suite->status = Success;
 }

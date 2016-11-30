@@ -23,7 +23,8 @@
 #define UNITCL_CORE_LISTS_TESTLIST
 
 #include <unitcl/core/macros/list_generator.h>
-#include <unitcl/core/test.h>
+
+struct UnitCL_TestCase;
 
 // Generate the structure and the functions signature to use a list of 
 // UnitCL_TestCase

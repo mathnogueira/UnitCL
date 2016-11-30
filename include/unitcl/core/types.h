@@ -26,14 +26,9 @@
 #include <unitcl/core/lists/test_list.h>
 
 /**
- * Shorten type name to make the test function signature shorter.
- */
-typedef struct UnitCL_TestCase UnitCL_Test;
-
-/**
  * Function signature that represents a test case. Every test implemented
  * to be run by this library must use this signature in order to work.
  */
-typedef void (*UnitCL_TestCase)(UnitCL_Test*);
+typedef void (*UnitCL_TestCaseFunct)(struct UnitCL_TestCase*);
 
 #endif

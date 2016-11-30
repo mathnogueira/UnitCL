@@ -23,6 +23,7 @@
 #define UNITCL_CORE_TEST
 
 #include <unitcl/core/enums.h>
+#include <unitcl/core/types.h>
 
 /**
  * Structure that stores information about the testcase, specially about
@@ -32,6 +33,7 @@ struct UnitCL_TestCase {
 	char *filename;
 	unsigned int line;
 	enum UnitCL_Test_Status status;
+	UnitCL_TestCaseFunct testFunct;
 };
 
 /**
@@ -47,5 +49,12 @@ struct UnitCL_TestCase* UnitCL_TestCase_Init();
  * @param testcase testcase that will be destroyed.
  */
 void UnitCL_TestCase_Destroy(struct UnitCL_TestCase* testcase);
+
+/**
+ * Run a testcase.
+ *
+ * @param testcase test that will run.
+ */
+void UnitCL_TestCase_Run(struct UnitCL_TestCase* testcase);
 
 #endif

@@ -42,3 +42,12 @@ struct UnitCL_TestCase* UnitCL_TestCase_Init() {
 void UnitCL_TestCase_Destroy(struct UnitCL_TestCase* testcase) {
 	free(testcase);
 }
+
+/**
+ * Run a testcase.
+ *
+ * @param testcase test that will run.
+ */
+void UnitCL_TestCase_Run(struct UnitCL_TestCase* testcase) {
+	testcase->testFunct(testcase);
+}
