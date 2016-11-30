@@ -27,10 +27,10 @@
 
 /**
  * Macro that create custom implementations of lists based on a type. You specify
- * a type and it will create the struct and all functions to manipulate the new
- * list.
+ * a type and it will create all functions to manipulate the new list datatype.
  *
  * @param type type that will be handled by the list.
+ * @param name name that will be used to compose the structure and function names.
  * @param destructor function used to destroy the type of the list. NULL if none is needed.
  */
 #define LIST_IMPL(type, name, destructor)												\
@@ -68,6 +68,13 @@
 		return list->list->size;														\
 	}
 
+/**
+ * Macro that declares the structure of a list and the signature of all of its
+ * functions.
+ *
+ * @param type type that will be handled by the list.
+ * @param name name that will be used to compose the structure and function names.
+ */
 #define LIST_HEADER(type, name)															\
 	struct ListOf_##name;																\
 																						\
