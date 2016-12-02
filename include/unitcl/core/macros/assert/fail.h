@@ -31,6 +31,8 @@
 #define FAIL()											\
 	do {												\
 		UnitCL_TestCase_SetStatus(testcase, Failed);	\
+		testcase->filename = __FILE__;					\
+		testcase->line = __LINE__;						\
 		return;											\
 	} while (0);
 
