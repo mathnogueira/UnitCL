@@ -66,7 +66,6 @@
 	UnitCL_TestSuite_AddSuite(UnitCL_TestSuite__##child, UnitCL_TestSuite__##suite);
 
 
-
 /**
  * Run a suite and all of its tests.
  *
@@ -75,9 +74,8 @@
 #define RUN_SUITE(suite)																	\
 	SUITE_INIT(suite);																		\
 	UnitCL_TestSuite_Execute(UnitCL_TestSuite__##suite);									\
-	if (UnitCL_TestSuite__##suite->root) {													\
-		return UnitCL_TestSuite__##suite->status == Failed ? 1 : 0;							\
-	}
+	int status = UnitCL_TestSuite__##suite->status == Failed ? 1 : 0;						\
+	return status;																			\
 	
 
 #endif

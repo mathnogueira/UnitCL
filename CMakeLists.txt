@@ -71,7 +71,7 @@ file (GLOB_RECURSE SOURCES source/unitcl/*.c)
 
 # Cria uma biblioteca para ser linkada ao programa real, dessa forma, fica mais
 # simples de executar os testes de unidade, se eles existirem.
-add_library(unitcl ${SOURCES})
+add_library(unitcl SHARED ${SOURCES})
 
 # Cria um executável para o projeto
 # Esse executável só será o arquivo main, pois o restante do programa já foi
