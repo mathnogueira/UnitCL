@@ -19,24 +19,24 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef UNITCL_CORE_MACROS_MACROS
-#define UNITCL_CORE_MACROS_MACROS
+#ifndef UNITCL_CORE_MACROS_ASSERT_ASSERT_EQ
+#define UNITCL_CORE_MACROS_ASSERT_ASSERT_EQ
 
-// Include all macros into this file
-
-// Macros used in the core of the library
-#include <unitcl/core/macros/list_generator.h>
-#include <unitcl/core/macros/utils.h>
-
-// Assertion macros
-#include <unitcl/core/macros/assert/assert.h>
-#include <unitcl/core/macros/assert/assert_eq.h>
-#include <unitcl/core/macros/assert/assert_str_eq.h>
+#include <unitcl/core/enums.h>
 #include <unitcl/core/macros/assert/fail.h>
-#include <unitcl/core/macros/assert/success.h>
 
-// Testing code generation
-#include <unitcl/core/macros/testing/test.h>
-#include <unitcl/core/macros/testing/suite.h>
+/**
+ * Macro that verifies if two values are the same, if they differ, it will fail
+ * and stop the test case.
+ *
+ * @param var1 first value
+ * @param var2 second value
+ */
+#define ASSERT_EQ(var1, var2)							\
+	do {												\
+		if (var1 != var2) {								\
+			FAIL()										\
+		}												\
+	} while (0);
 
 #endif
