@@ -75,6 +75,9 @@
 #define RUN_SUITE(suite)																	\
 	SUITE_INIT(suite);																		\
 	UnitCL_TestSuite_Execute(UnitCL_TestSuite__##suite);									\
+	if (UnitCL_TestSuite__##suite->root) {													\
+		return UnitCL_TestSuite__##suite->status == Failed ? 1 : 0;							\
+	}
 	
 
 #endif
