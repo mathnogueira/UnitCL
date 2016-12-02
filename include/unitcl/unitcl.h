@@ -27,9 +27,9 @@
 
 #include <unitcl/suite/test_suite.h>
 
-// Current version (0.1.0)
+// Current version (0.0.1)
 #define UNITCL__VERSION_MAJOR 0
-#define UNITCL__VERSION_MINOR 1
-#define UNITCL__VERSION_PATCH 0
+#define UNITCL__VERSION_MINOR 0
+#define UNITCL__VERSION_PATCH 1
 
 #endif

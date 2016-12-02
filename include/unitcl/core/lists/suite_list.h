@@ -19,17 +19,15 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef UNITCL_CORE_TYPES
-#define UNITCL_CORE_TYPES
+#ifndef UNITCL_CORE_LISTS_SUITELIST
+#define UNITCL_CORE_LISTS_SUITELIST
 
-#include <unitcl/core/test.h>
-#include <unitcl/core/lists/test_list.h>
-#include <unitcl/core/lists/suite_list.h>
+#include <unitcl/core/macros/list_generator.h>
 
-/**
- * Function signature that represents a test case. Every test implemented
- * to be run by this library must use this signature in order to work.
- */
-typedef void (*UnitCL_TestCaseFunct)(struct UnitCL_TestCase*);
+struct UnitCL_TestSuite;
+
+// Generate the structure and the functions signature to use a list of 
+// UnitCL_TestSuite
+LIST_HEADER(struct UnitCL_TestSuite, UnitCL_TestSuite);
 
 #endif

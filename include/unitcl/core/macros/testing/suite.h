@@ -29,7 +29,7 @@
  * @param suite name of the test suite
  */
 #define UNITCL_SUITE(suite)												\
-	struct UnitCL_TestSuite *UnitCL_TestSuite__##suite;			\
+	struct UnitCL_TestSuite *UnitCL_TestSuite__##suite = NULL;			\
 	void UnitCL_TestSuite_##suite##_Fn(struct UnitCL_TestSuite *_suite)
 
 /**
@@ -40,7 +40,10 @@
 #define SUITE(suite) UNITCL_SUITE(suite)
 
 #define SUITE_INIT(suite)												\
-	UnitCL_TestSuite__##suite = UnitCL_TestSuite_Init();				
+	if (UnitCL_TestSuite__##suite == NULL) {							\
+		UnitCL_TestSuite__##suite = UnitCL_TestSuite_Init();			\
+		UnitCL_TestSuite_##suite##_Fn(UnitCL_TestSuite__##suite);		\
+	}
 
 /**
  * Add a test case to the suite.
@@ -51,6 +54,17 @@
 #define ADD_TEST(suite, test)																\
 	UnitCL_TestSuite_AddTestFromFunction(suite##__##test, UnitCL_TestSuite__##suite);
 
+/**
+ * Add a child suite to be executed.
+ *
+ * @param child child suite that will be executed.
+ * @param suite parent suite.
+ */
+#define ADD_SUITE(child, suite)																\
+	SUITE_INIT(child);																		\
+	SUITE_INIT(suite);																		\
+	UnitCL_TestSuite_AddSuite(UnitCL_TestSuite__##child, UnitCL_TestSuite__##suite);
+
 
 
 /**
@@ -59,9 +73,8 @@
  * @param suite name of the test suite.
  */
 #define RUN_SUITE(suite)																	\
-	SUITE_INIT(suite);																			\
-	UnitCL_TestSuite_##suite##_Fn(UnitCL_TestSuite__##suite);								\
+	SUITE_INIT(suite);																		\
 	UnitCL_TestSuite_Execute(UnitCL_TestSuite__##suite);									\
-	printf("%s executada. Resultado: %d\n", #suite, UnitCL_TestSuite__##suite->status);
+	
 
 #endif

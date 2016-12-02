@@ -29,9 +29,11 @@
 
 struct UnitCL_TestSuite {
 	struct ListOf_UnitCL_TestCase *testcases;
+	struct ListOf_UnitCL_TestSuite *suites;
 	enum UnitCL_Test_Status status;
 	unsigned int number_tests;
 	unsigned int number_errors;
+	unsigned char root;
 };
 
 /**
@@ -55,6 +57,14 @@ void UnitCL_TestSuite_Destroy(struct UnitCL_TestSuite* suite);
  * @param suite suite that will execute the test.
  */
 void UnitCL_TestSuite_AddTest(struct UnitCL_TestCase *testcase, struct UnitCL_TestSuite *suite);
+
+/**
+ * Add a child test suite to be executed.
+ *
+ * @param child child test suite that must be executed.
+ * @param suite suite that will execute the child.
+ */
+void UnitCL_TestSuite_AddSuite(struct UnitCL_TestSuite *child, struct UnitCL_TestSuite *suite);
 
 /**
  * Add a new test case from a function that follows the test case signature.

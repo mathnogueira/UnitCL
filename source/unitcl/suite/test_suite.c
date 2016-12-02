@@ -24,6 +24,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Private functions
+void Suite_ExecuteTests(struct UnitCL_TestSuite *suite);
+void Suite_ExecuteSuites(struct UnitCL_TestSuite *suite);
+
 /**
  * Create a new empty test suite.
  *
@@ -34,7 +38,9 @@ struct UnitCL_TestSuite* UnitCL_TestSuite_Init() {
 	suite->number_tests = 0;
 	suite->number_errors = 0;
 	suite->status = New;
+	suite->root = 1;
 	suite->testcases = ListOf_UnitCL_TestCase_Init();
+	suite->suites = ListOf_UnitCL_TestSuite_Init();
 	return suite;
 }
 
@@ -56,7 +62,17 @@ void UnitCL_TestSuite_Destroy(struct UnitCL_TestSuite* suite) {
  */
 void UnitCL_TestSuite_AddTest(struct UnitCL_TestCase *testcase, struct UnitCL_TestSuite *suite) {
 	ListOf_UnitCL_TestCase_Push(testcase, suite->testcases);
-	printf("Numero de testes: %d\n", ListOf_UnitCL_TestCase_Size(suite->testcases));
+}
+
+/**
+ * Add a child test suite to be executed.
+ *
+ * @param child child test suite that must be executed.
+ * @param suite suite that will execute the child.
+ */
+void UnitCL_TestSuite_AddSuite(struct UnitCL_TestSuite *child, struct UnitCL_TestSuite *suite) {
+	child->root = 0;
+	ListOf_UnitCL_TestSuite_Push(child, suite->suites);
 }
 
 /**
@@ -78,6 +94,11 @@ void UnitCL_TestSuite_AddTestFromFunction(UnitCL_TestCaseFunct testcase, struct 
  * @param suite test suite that will be executed.
  */
 void UnitCL_TestSuite_Execute(struct UnitCL_TestSuite *suite) {
+	Suite_ExecuteSuites(suite);
+	Suite_ExecuteTests(suite);
+}
+
+void Suite_ExecuteTests(struct UnitCL_TestSuite *suite) {
 	unsigned int count = 0;
 	unsigned int testcases = ListOf_UnitCL_TestCase_Size(suite->testcases);
 	struct UnitCL_TestCase *test = NULL;
@@ -85,6 +106,20 @@ void UnitCL_TestSuite_Execute(struct UnitCL_TestSuite *suite) {
 		test = ListOf_UnitCL_TestCase_Retrieve(count, suite->testcases);
 		UnitCL_TestCase_Run(test);
 		if (test->status == Failed)
+			suite->status = Failed;
+	}
+	if (suite->status != Failed)
+		suite->status = Success;
+}
+
+void Suite_ExecuteSuites(struct UnitCL_TestSuite *suite) {
+	unsigned int count = 0;
+	unsigned int suites = ListOf_UnitCL_TestSuite_Size(suite->suites);
+	struct UnitCL_TestSuite *child = NULL;
+	for (; count < suites; ++count) {
+		child = ListOf_UnitCL_TestSuite_Retrieve(count, suite->suites);
+		UnitCL_TestSuite_Execute(child);
+		if (child->status == Failed)
 			suite->status = Failed;
 	}
 	if (suite->status != Failed)
