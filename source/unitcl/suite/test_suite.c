@@ -66,7 +66,7 @@ void UnitCL_TestSuite_AddTest(struct UnitCL_TestCase *testcase, struct UnitCL_Te
  * @param suite suite that will execute the test.
  */
 void UnitCL_TestSuite_AddTestFromFunction(UnitCL_TestCaseFunct testcase, struct UnitCL_TestSuite *suite) {
-	struct UnitCL_TestCase *test = UnitCL_TestSuite_Init();
+	struct UnitCL_TestCase *test = UnitCL_TestCase_Init();
 	test->status = New;
 	test->testFunct = testcase;
 	UnitCL_TestSuite_AddTest(test, suite);

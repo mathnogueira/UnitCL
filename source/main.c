@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unitcl/suite/test_suite.h>
-#include <unitcl/core/macros/macros.h>
+#include <unitcl/unitcl.h>
 
 TEST(Analise, ListarTecnicos) {
 	int i = 1;
