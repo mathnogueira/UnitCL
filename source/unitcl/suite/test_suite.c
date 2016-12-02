@@ -60,6 +60,19 @@ void UnitCL_TestSuite_AddTest(struct UnitCL_TestCase *testcase, struct UnitCL_Te
 }
 
 /**
+ * Add a new test case from a function that follows the test case signature.
+ *
+ * @param testcase function that executes the test.
+ * @param suite suite that will execute the test.
+ */
+void UnitCL_TestSuite_AddTestFromFunction(UnitCL_TestCaseFunct testcase, struct UnitCL_TestSuite *suite) {
+	struct UnitCL_TestCase *test = UnitCL_TestSuite_Init();
+	test->status = New;
+	test->testFunct = testcase;
+	UnitCL_TestSuite_AddTest(test, suite);
+}
+
+/**
  * Execute all test cases associated with a test suite.
  *
  * @param suite test suite that will be executed.

@@ -19,45 +19,21 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <unitcl/core/test.h>
-#include <unitcl/core/types.h>
-#include <stdlib.h>
+#ifndef UNITCL_CORE_MACROS_ASSERT_ASSERT
+#define UNITCL_CORE_MACROS_ASSERT_ASSERT
+
+#include <unitcl/core/enums.h>
+#include <unitcl/core/macros/assert/fail.h>
 
 /**
- * Create a new test case in the heap.
+ * Macro that verifies a condition that will make a test fail or continue.
  *
- * @return pointer to the new test case.
  */
-struct UnitCL_TestCase* UnitCL_TestCase_Init() {
-	struct UnitCL_TestCase* testcase = (struct UnitCL_TestCase*) malloc(sizeof(testcase));
-	testcase->status = New;
-	return testcase;
-}
+#define ASSERT(condition)								\
+	do {												\
+		if (!(condition)) {								\
+			FAIL()										\
+		}												\
+	} while (0);
 
-/**
- * Destroy a test case.
- *
- * @param testcase testcase that will be destroyed.
- */
-void UnitCL_TestCase_Destroy(struct UnitCL_TestCase* testcase) {
-	free(testcase);
-}
-
-/**
- * Run a testcase.
- *
- * @param testcase test that will run.
- */
-void UnitCL_TestCase_Run(struct UnitCL_TestCase* testcase) {
-	testcase->testFunct(testcase);
-}
-
-/**
- * Change the status of a test case.
- *
- * @param testcase test that will have its status changed.
- * @param status new status.
- */
-void UnitCL_TestCase_SetStatus(struct UnitCL_TestCase* testcase, enum UnitCL_Test_Status status) {
-	testcase->status = status;
-}
+#endif

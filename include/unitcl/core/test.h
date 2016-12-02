@@ -57,4 +57,12 @@ void UnitCL_TestCase_Destroy(struct UnitCL_TestCase* testcase);
  */
 void UnitCL_TestCase_Run(struct UnitCL_TestCase* testcase);
 
+/**
+ * Change the status of a test case.
+ *
+ * @param testcase test that will have its status changed.
+ * @param status new status.
+ */
+void UnitCL_TestCase_SetStatus(struct UnitCL_TestCase* testcase, enum UnitCL_Test_Status status);
+
 #endif

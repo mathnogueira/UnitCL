@@ -12,7 +12,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 # Para definir modo de debug
 # -Ddebug=OFF
 # Padrão: Desativado
-option(debug "Buiding in debug mode" OFF)
+option(debug "Buiding in debug mode" ON)
 
 # Define se o GNU G++ será utilizado para compilar o código
 # -Dgnucompiler=ON

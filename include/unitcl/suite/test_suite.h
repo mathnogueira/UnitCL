@@ -57,6 +57,14 @@ void UnitCL_TestSuite_Destroy(struct UnitCL_TestSuite* suite);
 void UnitCL_TestSuite_AddTest(struct UnitCL_TestCase *testcase, struct UnitCL_TestSuite *suite);
 
 /**
+ * Add a new test case from a function that follows the test case signature.
+ *
+ * @param testcase function that executes the test.
+ * @param suite suite that will execute the test.
+ */
+void UnitCL_TestSuite_AddTestFromFunction(UnitCL_TestCaseFunct testcase, struct UnitCL_TestSuite *suite);
+
+/**
  * Execute all test cases associated with a test suite.
  *
  * @param suite test suite that will be executed.

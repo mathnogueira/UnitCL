@@ -19,45 +19,20 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <unitcl/core/test.h>
-#include <unitcl/core/types.h>
-#include <stdlib.h>
+#ifndef UNITCL_CORE_MACROS_TESTING_TEST
+#define UNITCL_CORE_MACROS_TESTING_TEST
 
 /**
- * Create a new test case in the heap.
+ * Create a testcase that will be executed.
  *
- * @return pointer to the new test case.
+ * @param suite name of the test suite.
+ * @param test name of the test.
  */
-struct UnitCL_TestCase* UnitCL_TestCase_Init() {
-	struct UnitCL_TestCase* testcase = (struct UnitCL_TestCase*) malloc(sizeof(testcase));
-	testcase->status = New;
-	return testcase;
-}
+#define UNITCL_TEST(suite, test)											\
+	void suite##__##test(struct UnitCL_TestCase *testcase)
 
-/**
- * Destroy a test case.
- *
- * @param testcase testcase that will be destroyed.
- */
-void UnitCL_TestCase_Destroy(struct UnitCL_TestCase* testcase) {
-	free(testcase);
-}
 
-/**
- * Run a testcase.
- *
- * @param testcase test that will run.
- */
-void UnitCL_TestCase_Run(struct UnitCL_TestCase* testcase) {
-	testcase->testFunct(testcase);
-}
+#define TEST(suite, test) UNITCL_TEST(suite, test)
 
-/**
- * Change the status of a test case.
- *
- * @param testcase test that will have its status changed.
- * @param status new status.
- */
-void UnitCL_TestCase_SetStatus(struct UnitCL_TestCase* testcase, enum UnitCL_Test_Status status) {
-	testcase->status = status;
-}
+
+#endif
