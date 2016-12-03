@@ -32,4 +32,12 @@
  */
 typedef void (*UnitCL_TestCaseFunct)(struct UnitCL_TestCase*);
 
+/**
+ * Function signature that represents a result reporter. A reporter is responsible
+ * for receiving the data of tests and display a nice output to help the developer
+ * to find the problems in his code.
+ *
+ */
+typedef void (*UnitCL_Reporter)(struct UnitCL_TestSuite *suite);
+
 #endif

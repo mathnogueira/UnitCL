@@ -19,27 +19,25 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef UNITCL_MAIN
-#define UNITCL_MAIN
-
-#include <unitcl/core/macros.h>
-#include <unitcl/core/test.h>
-
 #include <unitcl/reporter/default.h>
 
-#include <unitcl/suite/test_suite.h>
+// Private function
+void Default_Print_Suite(struct UnitCL_TestSuite *suite);
 
-// Current version (0.0.1)
-#define UNITCL__VERSION_MAJOR 0
-#define UNITCL__VERSION_MINOR 0
-#define UNITCL__VERSION_PATCH 1
+/**
+ * Default results reporter. 
+ *
+ * @param suite suite that contains details about the tests that were ran.
+ */
+void UnitCL_Default_Reporter(struct UnitCL_TestSuite *suite) {
+	unsigned int suites = ListOf_UnitCL_TestSuite_Size(suite->suites);
+	for (unsigned int i = 0; i < suites; ++i) {
+		struct UnitCL_TestSuite *childSuite = ListOf_UnitCL_TestSuite_Retrieve(i, suite->suites);
+		Default_Print_Suite(childSuite);
+	}
+	Default_Print_Suite(suite);
+}
 
-// Reporter
-UnitCL_Reporter activeReporter;
-
-// Init
-
-#define UNITCL_INIT()											\
-	activeReporter = UnitCL_Default_Reporter;
-
-#endif
+void Default_Print_Suite(struct UnitCL_TestSuite *suite) {
+	printf("Suite %d\n", suite->number_tests);
+}

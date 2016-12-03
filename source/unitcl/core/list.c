@@ -32,6 +32,7 @@ struct UnitCL_List_Node* UnitCL_List_Node_Init(void *content);
 struct UnitCL_List* UnitCL_List_Init() {
 	struct UnitCL_List* list = (struct UnitCL_List*) malloc(sizeof(list));
 	list->head = NULL;
+	list->size = 0;
 	return list;
 }
 
@@ -56,7 +57,7 @@ void UnitCL_List_Push(void *element, struct UnitCL_List* list) {
 	if (list->head == NULL) {
 		list->head = node;
 		return;
-	} 
+	}
 	struct UnitCL_List_Node *current = list->head;
 	while (current->next != NULL) current = current->next;
 	current->next = node;

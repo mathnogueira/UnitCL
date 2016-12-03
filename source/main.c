@@ -31,6 +31,7 @@ SUITE(CadastroUsoAgua) {
 }
 
 int main(int argc, char **argv) {
+	UNITCL_INIT();
 	RUN_SUITE(CadastroUsoAgua);
 	return 0;
 }

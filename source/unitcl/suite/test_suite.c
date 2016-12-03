@@ -19,10 +19,11 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <unitcl/suite/test_suite.h>
-#include <unitcl/core/test.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <unitcl/suite/test_suite.h>
+#include <unitcl/core/test.h>
 
 // Private functions
 void Suite_ExecuteTests(struct UnitCL_TestSuite *suite);
@@ -96,6 +97,10 @@ void UnitCL_TestSuite_AddTestFromFunction(UnitCL_TestCaseFunct testcase, struct 
 void UnitCL_TestSuite_Execute(struct UnitCL_TestSuite *suite) {
 	Suite_ExecuteSuites(suite);
 	Suite_ExecuteTests(suite);
+	// If it's the root suite, print the report
+	if (suite->root) {
+		activeReporter(suite);
+	}
 }
 
 void Suite_ExecuteTests(struct UnitCL_TestSuite *suite) {

@@ -33,7 +33,7 @@ struct UnitCL_TestSuite {
 	enum UnitCL_Test_Status status;
 	unsigned int number_tests;
 	unsigned int number_errors;
-	unsigned char root;
+	unsigned short root;
 };
 
 /**
